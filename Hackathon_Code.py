@@ -65,31 +65,8 @@ else :
 if next_steps == 1:
 
 
-centre_locations = pd.read_csv("centre_locations.csv")
+centre_locations = pd.read_csv("final_database.csv")
 #print(centre_locations)
-
-latitudes = []
-longitudes = []
-for i in range(len(centre_locations.index)):
-    str1 = centre_locations["JSON"][i]
-
-    import http.client
-
-    conn = http.client.HTTPSConnection("google-maps-geocoding.p.rapidapi.com")
-    headers = {
-        'x-rapidapi-host': "google-maps-geocoding.p.rapidapi.com",
-        'x-rapidapi-key': "64a2c6e7e1mshb84cb6a6df3feedp196c9fjsnb64d7956ace6"
-    }
-    conn.request("GET", str1, headers=headers)
-    res = conn.getresponse()
-    data = res.read()
-    str2 = (data.decode("utf-8"))
-
-    latitudes.append(float((data.decode("utf-8"))[((data.decode("utf-8")).find("lat") + 7):((data.decode("utf-8")).find("lat") + 16)]))
-    longitudes.append(float((data.decode("utf-8"))[((data.decode("utf-8")).find("lng") + 7):((data.decode("utf-8")).find("lng") + 18)]))
-
-centre_locations['latitudes'] = latitudes
-centre_locations['longitudes'] = longitudes
 
 import phonenumbers
 from phonenumbers import geocoder
