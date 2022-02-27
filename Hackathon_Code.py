@@ -98,7 +98,32 @@ centre_locations['minimum distance'] = min_dist
 #print(centre_locations)
 
 
+
+
 centre_locations.sort_values(by=['minimum distance'], inplace=True)
+
+#get date, day and time of user and filter data accordingly
+from datetime import datetime
+from datetime import date
+
+
+now = datetime.now()
+today = date.today()
+print("Today's date:", today)
+
+current_time = now.strftime("%H%M")
+print("Current Time =", current_time)
+
+weekday = datetime.weekday(today)
+print("Current Day=", weekday)
+# int value range: 0-6, monday-sunday
+if weekday <5:
+    day_range = "M-F"
+elif weekday >= 5:
+    day_range = "M-S"
+print(day_range)
+
+centre_locations[(centre_locations['Opens at'] <= current_time) & ( current_time<= centre_location['Closes at'])&(centre_location['Days open']==day_range)]
 
 
 admit_locations = centre_locations.loc[centre_locations['Doctor Consultation AND ADMIT'] == 'Y']
