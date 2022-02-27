@@ -48,7 +48,7 @@ print("were you in contact with infected person (1 mean yes, 0 mean no)")
 contact = int(input("enter answer : "))
 
 # condition and next steps based on score
-next_steps = 0
+
 if score > 5 :
     print ("must do a covid-19 test.You may be infected with covid-19. We will be accessing your devices information to help you find the nearest open covid testing center")
     next_steps = 1
@@ -57,20 +57,19 @@ elif score < 3:
 else :
     if contact == 1 :
         print("You must Isolate for 14 days and do a covid-19 test.We will be accessing your devices information to help you find the nearest open covid testing center")
-        next_steps = 1
     else :
         print("Isolate for 7 days if no more symptoms then you are not infected")
+        quit()
 
 
-if next_steps == 1:
 
 
-centre_locations = pd.read_csv("final_database.csv")
+centre_locations = pd.read_csv("total_database1.csv")
 #print(centre_locations)
 
 import phonenumbers
 from phonenumbers import geocoder
-number = input("Pease number: ")
+
 key = "06a067a51a8b4290b8678be0c5b1ab4f"
 
 n = phonenumbers.parse(number)
@@ -95,8 +94,16 @@ for i in range(len(centre_locations.index)):
     min_dist.append(minboi)
 
 centre_locations['minimum distance'] = min_dist
-print(centre_locations)
+#print(centre_locations)
 
 
+centre_locations.sort_values(by=['minimum distance'], inplace=True)
 
 
+admit_locations = centre_locations.loc[centre_locations['Doctor Consultation AND ADMIT'] == 'Y']
+vaccine_locations = centre_locations.loc[centre_locations['Vaccine Available'] == 'Y']
+mask_locations = centre_locations.loc[centre_locations['Masks'] == 'Y']
+testing_locations = centre_locations.loc[centre_locations['testing'] == 'Y']
+home_locations = centre_locations.loc[centre_locations['home testing'] == 'Y']
+
+print(testing_locations)
