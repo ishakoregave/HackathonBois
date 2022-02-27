@@ -49,18 +49,19 @@ contact = int(input("enter answer : "))
 
 # condition and next steps based on score
 
-if score > 5 :
-    print ("must do a covid-19 test.You may be infected with covid-19. We will be accessing your devices information to help you find the nearest open covid testing center")
+if score > 7:
+    print("You are being directed to hospitals near you, please make sure you get admitted immediately")
+elif 7>=score >=4 :
+    print ("Must do a covid-19 test.You may be infected with covid-19. We will be accessing your devices information to help you find the nearest open covid testing center")
     next_steps = 1
-elif score < 3:
-    print("you must isolate yourself for 5 days, if no more symptoms then you are not infected ")
+elif 0< score =< 3:
+    print("you must isolate yourself for 5 days, if no more symptoms then you are not infected. We will be accessing your devices information and providing you with information regarding resources such as masks are available. ")
 else :
     if contact == 1 :
         print("You must Isolate for 14 days and do a covid-19 test.We will be accessing your devices information to help you find the nearest open covid testing center")
     else :
         print("Isolate for 7 days if no more symptoms then you are not infected")
         quit()
-
 
 
 
